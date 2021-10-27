@@ -30,13 +30,14 @@ namespace MABApi.Controllers
             {
                 if (string.IsNullOrEmpty(id))
                 {
-                    return await _context.Leaderboard.ToListAsync();
+                    var leaderboard = await _context.GetLeaderboard();
+                    return leaderboard.ToArray();
                 }
 
                 if (int.TryParse(id, out int idInt))
                 {
-                    LeaderboardItem item = await _context.Leaderboard.SingleAsync(x => x.ID == idInt);
-                    return new LeaderboardItem[] { item };
+                    var leaderboardItem = await _context.GetLeaderboardItem(idInt);
+                    return new LeaderboardItem[] { leaderboardItem };
                 }
             }
             catch (Exception e)
@@ -52,15 +53,14 @@ namespace MABApi.Controllers
         {
             try
             {
-                await _context.Leaderboard.AddAsync(leaderboardItem);
-                await _context.SaveChangesAsync();
+                await _context.CreateLeaderboardItem(leaderboardItem);
             }
             catch (Exception e)
             {
                 return BadRequest(e);
             }
 
-            return NotFound();
+            return Ok("Leaderboard item created");
         }
 
         [HttpPut]
@@ -68,15 +68,14 @@ namespace MABApi.Controllers
         {
             try
             {
-                _context.Leaderboard.Update(leaderboardItem);
-                await _context.SaveChangesAsync();
+                await _context.EditLeaderboardItem(leaderboardItem);
             }
             catch (Exception e)
             {
                 return BadRequest(e);
             }
 
-            return NotFound();
+            return Ok("Leaderboard item edited");
         }
 
         [HttpDelete]
@@ -84,15 +83,14 @@ namespace MABApi.Controllers
         {
             try
             {
-                _context.Leaderboard.Remove(leaderboardItem);
-                await _context.SaveChangesAsync();
+                await _context.DeleteLeaderboardItem(leaderboardItem);
             }
             catch (Exception e)
             {
                 return BadRequest(e);
             }
 
-            return NotFound();
+            return Ok("Leaderboard item deleted");
         }
     }
 }

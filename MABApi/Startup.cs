@@ -13,6 +13,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.OpenApi.Models;
 
 namespace MABApi
 {
@@ -32,6 +33,16 @@ namespace MABApi
                    options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddScoped<IDatabaseContext>(provider => provider.GetService<DatabaseContext>());
             services.AddControllers();
+
+            services.AddSwaggerGen(options =>
+            {
+                options.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Title = "Leaderboard API",
+                    Version = "v1",
+                    Description = "Sample for leaderboard API",
+                });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -43,6 +54,13 @@ namespace MABApi
             }
 
             app.UseHttpsRedirection();
+
+            app.UseSwagger();
+
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Leaderboard API");
+            });
 
             app.UseRouting();
 

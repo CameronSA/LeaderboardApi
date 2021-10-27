@@ -30,12 +30,13 @@ namespace MABApi.Controllers
             {
                 if (string.IsNullOrEmpty(id))
                 {
-                    return await _context.Players.ToListAsync();
+                    var players = await _context.GetPlayers();
+                    return players.ToArray();
                 }
 
                 if (int.TryParse(id, out int idInt))
                 {
-                    Player player = await _context.Players.SingleAsync(x => x.ID == idInt);
+                    Player player = await _context.GetPlayer(idInt);
                     return new Player[] { player };
                 }
             }
@@ -52,15 +53,14 @@ namespace MABApi.Controllers
         {
             try
             {
-                await _context.Players.AddAsync(player);
-                await _context.SaveChangesAsync();
+                await _context.CreatePlayer(player);
             }
             catch (Exception e)
             {
                 return BadRequest(e);
             }
 
-            return NotFound();
+            return Ok("Player created");
         }
 
         [HttpPut]
@@ -68,15 +68,14 @@ namespace MABApi.Controllers
         {
             try
             {
-                _context.Players.Update(player);
-                await _context.SaveChangesAsync();
+                await _context.EditPlayer(player);
             }
             catch (Exception e)
             {
                 return BadRequest(e);
             }
 
-            return NotFound();
+            return Ok("Player edited");
         }
 
         [HttpDelete]
@@ -84,15 +83,14 @@ namespace MABApi.Controllers
         {
             try
             {
-                _context.Players.Remove(player);
-                await _context.SaveChangesAsync();
+                await _context.DeletePlayer(player);
             }
             catch (Exception e)
             {
                 return BadRequest(e);
             }
 
-            return NotFound();
+            return Ok("Player deleted");
         }
     }
 }
