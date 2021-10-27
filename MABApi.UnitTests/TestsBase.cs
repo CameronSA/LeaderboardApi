@@ -37,6 +37,8 @@ namespace MABApi.UnitTests
                 mockDb.Setup(x => x.GetPlayer(i+1)).Returns(Task.FromResult(players.ToList()[i]));
             }
 
+            mockDb.Setup(x => x.GetPlayer(99)).Throws(new Exception());
+
             mockDb.Setup(x => x.EditPlayer(It.IsAny<Player>())).Returns(Task.FromResult(true));
             mockDb.Setup(x => x.CreatePlayer(It.IsAny<Player>())).Returns(Task.FromResult(true));
             mockDb.Setup(x => x.DeletePlayer(It.IsAny<Player>())).Returns(Task.FromResult(true));
@@ -47,6 +49,8 @@ namespace MABApi.UnitTests
             {
                 mockDb.Setup(x => x.GetLeaderboardItem(i + 1)).Returns(Task.FromResult(leaderboard.ToList()[i]));
             }
+
+            mockDb.Setup(x => x.GetLeaderboardItem(99)).Throws(new Exception());
 
             mockDb.Setup(x => x.EditLeaderboardItem(It.IsAny<LeaderboardItem>())).Returns(Task.FromResult(true));
             mockDb.Setup(x => x.CreateLeaderboardItem(It.IsAny<LeaderboardItem>())).Returns(Task.FromResult(true));

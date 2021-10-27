@@ -11,9 +11,9 @@ Documentation for the JSON request structure is outlined on the API's swagger pa
 
 ## Unit Tests
 
-The application is fully unit tested. The idea of the tests is to act as requirements for the application (e.g. There are tests to make sure the email of a player on edit/creation is correct). Most of the tests involve sending a sample request and asserting a specific response. The reason for this high level testing is so that if the logic that handles requests changes, the tests do not have to be changed. 
+The application is fully unit tested (at least for the specific requirements I can think of). The idea of the tests is to act as requirements for the application (e.g. There are tests to make sure the email of a player on edit/creation is correct). Most of the tests involve sending a sample request and asserting a specific response. The reason for this high level testing is so that if the logic that handles requests changes, the tests do not have to be changed. 
 
-Generally, I try to follow TDD (although this isn't always possible), as aside from the obvious benefits of catching bugs early on, it encourages developers to write the minimum amount of application code possible. In other words, the only application code that is written is the code required for the tests to pass. This ultimately leads to a more robust and simpler application.
+Generally, I try to follow TDD (although this isn't always possible), as aside from the obvious benefits of catching bugs early on, it encourages developers to write the minimum amount of application code possible. In other words, the only application code that is written is the code required for the tests to pass. This ultimately leads to a more robust and simpler application. 
 
 ## Things to consider
 
