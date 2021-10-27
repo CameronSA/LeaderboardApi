@@ -31,13 +31,13 @@ For leaderboard:
 
  - As an application, this API is pretty basic, there is no front end, security, or methods of deployment. Some ideas of where this could go next are as follows:
 
-	- Give the app a front end - could be a single page application in React
+	- Give the app a front end - could be a single page application in React. Alternatively, the app could be simply turned into an MVC app by getting the controllers to return views instead of data.
 
 	- Give the app some authentication - In .Net MVC apps (which are basically just APIs with views), there is an ```[Authorize(Roles="")]``` decorator for controller classes and methods. This can be combined with some middleware that validates claims in a JSON Web Token (JWT) with specific roles for each controller/method. For this API, a React front end could be programmed to allow login (using a service such as AWS Cognito). On login, the app would receive a (JWT) with which requests (with the JWT in the header) can be validated. That way, we don't get unauthorised users deleting things!
 
 	- To expand on this further, this API could be containerised with docker (although if used with docker, the database has to be accesible - it can't just be dumped on localhost) and hosted in a VPC behind an API gateway (or written as a Lambda function if hosted on AWS). Attached to the API gateway would be an authoriser that validates the JWTs of incoming requests, meaning that the container/lambda function would not need to worry about security as much (I've used this architecture a few times in the past to build OPEX focused systems with little to no CAPEX requirement).
 
-	- In terms of deployment, the most obvious approach would be to setup a CI/CD pipeline that checks out the code from its repository, runs the tests, and deploys it to a staging environment. Once in the staging environment, any integration tests/QA can be done, before moving it on to production
+	- In terms of deployment, the most obvious approach would be to setup a CI/CD pipeline (with something like GitHub actions or AWS CodePipeline) that checks out the code from its repository, runs the tests, and deploys it to a staging environment. Once in the staging environment, any integration tests/QA can be done, before moving it on to production. 
 
 ## A Note on Entity Framework
 
