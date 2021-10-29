@@ -23,6 +23,11 @@ namespace MABApi.Controllers
             _context = context;
         }
 
+        /// <summary>
+        /// If an id is not provided, list all players. Otherwise, fetch the player with the specified ID.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns>Either a list of players or a specific player</returns>
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Player>>> Get(string id)
         {
@@ -51,6 +56,8 @@ namespace MABApi.Controllers
         [HttpPost]
         public async Task<ActionResult> Post(Player player)
         {
+            // TODO: Should ideally have some validation here
+
             try
             {
                 await _context.CreatePlayer(player);
@@ -66,6 +73,8 @@ namespace MABApi.Controllers
         [HttpPut]
         public async Task<ActionResult> Put(Player player)
         {
+            // TODO: Should ideally have some validation here
+
             try
             {
                 await _context.EditPlayer(player);
@@ -81,6 +90,8 @@ namespace MABApi.Controllers
         [HttpDelete]
         public async Task<ActionResult> Delete(Player player)
         {
+            // TODO: Instead of passing in a full player object, could just pass in the ID - could have a DeletePlayerRequest object which contains the ID.
+
             try
             {
                 await _context.DeletePlayer(player);

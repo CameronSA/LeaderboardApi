@@ -11,6 +11,7 @@ namespace MABApi.Database
     {
         public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options)
         {
+            //DatabaseSeed.Seed(this);
         }
 
         public DbSet<Player> Players { get; set; }

@@ -23,6 +23,12 @@ namespace MABApi.Controllers
             _context = context;
         }
 
+
+        /// <summary>
+        /// If an id is not provided, gets the full leaderboard. Otherwise, fetch the leaderboard item with the specified ID.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns>the full leaderboard or a specific leaderboard item</returns>
         [HttpGet]
         public async Task<ActionResult<IEnumerable<LeaderboardItem>>> Get(string id)
         {
@@ -51,6 +57,8 @@ namespace MABApi.Controllers
         [HttpPost]
         public async Task<ActionResult> Post(LeaderboardItem leaderboardItem)
         {
+            // TODO: User should only be able to pass in the player ID of a player that exists but does not yet have a record in the leaderboard
+
             try
             {
                 await _context.CreateLeaderboardItem(leaderboardItem);
@@ -66,6 +74,8 @@ namespace MABApi.Controllers
         [HttpPut]
         public async Task<ActionResult> Put(LeaderboardItem leaderboardItem)
         {
+            // TODO: Could potentially restrict changing the player ID here
+
             try
             {
                 await _context.EditLeaderboardItem(leaderboardItem);
@@ -81,6 +91,8 @@ namespace MABApi.Controllers
         [HttpDelete]
         public async Task<ActionResult> Delete(LeaderboardItem leaderboardItem)
         {
+            // TODO: See PlayerController.Delete
+
             try
             {
                 await _context.DeleteLeaderboardItem(leaderboardItem);
